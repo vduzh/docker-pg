@@ -55,6 +55,18 @@
 - Remove
 - `docker rm alpine` - delete a container
 
+##  Copy files
+
+- `docker run -it --name alpine alpine sh`
+
+### To Container
+
+- `docker cp README.md alpine:/`
+
+### From Container
+
+- `docker cp alpine:/lib .`
+
 # Networking
 
 - `docker network COMMAND`
