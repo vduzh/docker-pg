@@ -74,3 +74,12 @@
       - `docker run -it -d --name alpine21 alpine sh`
       - `docker attach alpine21`  
       - `traceroute 192.168.1.45` - host ip
+
+## Host Driver
+
+  - Doesn't work on Windows/MacOs as uses a virtual machine
+  - `docker run -it -d --network host --name alpine31 alpine sh`
+  - `docker inspect alpine31`
+  - `docker network inspect host`
+  - `docker attach alpine31`
+    - `traceroute google.com`
