@@ -67,6 +67,10 @@
 
 - `docker cp alpine:/lib .`
 
+##  Diff
+
+- `docker diff alpine`
+
 # Networking
 
 - `docker network COMMAND`
