@@ -83,3 +83,16 @@
   - `docker network inspect host`
   - `docker attach alpine31`
     - `traceroute google.com`
+
+## None Driver
+
+  - Use cases:
+    - Run one-time job in an isoilated environment
+    - Run some script which doesn't use Internet
+  - `docker run -it -d --network none --name alpine41 alpine sh`
+  - `docker inspect alpine41`
+  - `docker network inspect none`
+  - `docker attach alpine41`
+    - `ping google.com` - bad address 'google.com'
+    - `ping 172.17.0.1` - sendto: Network unreachable
+    - `ip addr show` - there is only access to the local host
