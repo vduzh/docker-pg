@@ -5,7 +5,7 @@
 
 ## Bridge Driver
 
-### Default
+### Bridge network (default, legacy, not recommneded in prod)
 
 - `docker run -it -d --name alpine1 alpine sh`
 - `docker run -it -d --name alpine2 alpine sh`
