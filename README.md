@@ -25,22 +25,22 @@
 
 ### User Defined Network (preferred)
 
-- DNS names are availabe
-- Create networks:
-  - `docker network create custom-net-1`
-  - `docker network create custom-net-2`
-  - `docker network ls`
-- Create containers :
-  - `docker run -it -d --network custom-net-1 --name alpine11 alpine sh`
-  - `docker run -it -d --network custom-net-1 --name alpine12 alpine sh`
-  - `docker run -it -d --network custom-net-1 --name alpine13 alpine sh`
-  - `docker network connect custom-net-2 alpine13`
-  - `docker run -it -d --network custom-net-2 --name alpine14 alpine sh`
-- Check networks:
-  - `docker network inspect custom-net-1`
-  - `docker network inspect custom-net-2`
-- Check connetctions:
-  - From alpine11
+  - DNS names are availabe
+  - Create networks:
+    - `docker network create custom-net-1`
+    - `docker network create custom-net-2`
+    - `docker network ls`
+    - Create containers :
+    - `docker run -it -d --network custom-net-1 --name alpine11 alpine sh`
+    - `docker run -it -d --network custom-net-1 --name alpine12 alpine sh`
+    - `docker run -it -d --network custom-net-1 --name alpine13 alpine sh`
+    - `docker network connect custom-net-2 alpine13`
+    - `docker run -it -d --network custom-net-2 --name alpine14 alpine sh`
+    - Check networks:
+    - `docker network inspect custom-net-1`
+    - `docker network inspect custom-net-2`
+    - Check connetctions:
+    - From alpine11
     - `docker attach alpine11`
     - `ping alpine13` - OK
     - `ping alpine14` - bad address 'alpine14'
@@ -48,10 +48,29 @@
     - `docker attach alpine13`
     - `ping alpine12` - OK
     - `ping alpine14` - OK
-- Delete networks
-  - Delete containers first
-    - `docker kill alpine11 alpine12 alpine13 alpine14`
-    - `docker rm alpine11 alpine12 alpine13 alpine14`
+  - Delete networks
+    - Delete containers first
+      - `docker kill alpine11 alpine12 alpine13 alpine14`
+      - `docker rm alpine11 alpine12 alpine13 alpine14`
   - Delete networks
     - `docker network rm custom-net-1 custom-net-2`
     - `docker network ls`
+
+### Port Forwarding
+
+  - Create container:
+    - `docker run -it -d -e POSTGRES_PASSWORD=postgres -p 5434:5432 --name postgres postgres` - 5434 is a port on the host machine
+    - `docker ps`
+  - Check port
+    - `sudo lsof -i :5434`
+    - Connect from outside
+      - `ifconfig en0` - take ip address: 192.168.1.45
+      - `telnet 192.168.1.45 5434`
+  - Windows/MacOs
+    - Uses a virtual machine
+      - `docker run -it --rm --privileged --pid=host justincormack/nsenter1`
+      - `ip addr show | grep docker` - take docker address, i.e. 172.17.0.1
+    - TBD
+      - `docker run -it -d --name alpine21 alpine sh`
+      - `docker attach alpine21`  
+      - `traceroute 192.168.1.45` - host ip
