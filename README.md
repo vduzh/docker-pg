@@ -169,3 +169,103 @@
   - `ping google.com` - bad address 'google.com'
   - `ping 172.17.0.1` - sendto: Network unreachable
   - `ip addr show` - there is only access to the local host
+
+# Custom images
+
+## Basic
+
+- Build image
+  - `docker build -f Dockerfile .`
+    - `docker build .`
+      - `docker run -it 589 sh`
+        - `docker inspect 589`
+    - `docker build --build-arg alpine_vesrion=3 --build-arg foo=Foo -f Dockerfile .`
+- Entry point
+    - ENTRYPOINT - process to run
+    - CMD - process params
+    - `docker run -it 653 start` - run tomcat with start (default is run)
+- Cache
+  - `docker build --no-cache .`
+
+## Tag images
+
+### With -t option
+
+- `docker build -t repo_name/my-first-tag:1.0 .`
+  - `docker run repo_name/my-first-tag:1.0`
+
+### With tag command (used more frequently)
+
+- `docker tag d595e854deed repo_name/my-tomcat:1.0`
+  - `docker tag d595e854deed repo_name/my-tomcat:1.1` - add one more tag to the same image
+
+
+## Multi stage builds (located in the multi-stage folder)
+
+ - `cd multi-stage`
+ - `docker build .`
+ - `docer run 83q`
+
+ ## Build Context
+
+ - Docker file is always taken from a context
+
+ ### From std in
+ 
+ - `docker build -f- . <<EOF`
+ - `FROM alpine`
+ - `RUN touch test.txt`
+ - `EOF`
+
+ ### Without Context
+ 
+ - `docker build - <<EOF`
+ - `FROM alpine`
+ - `EOF`
+
+### By URL
+ 
+### From archive
+
+## Push images
+
+### Authentication
+
+- `docker login`
+  - `cat ~/.docker/config.json` - auth info stored here
+- `docker login localhost:8080`
+- `docker login -u some_user -p some_pass`
+- `cat ~/my_password.txt | docker login -u some_user -password-stdin`
+
+### Pushing
+
+- `docker push repo_name/my-first-tag:1.0`
+
+### Logout
+- `docker logout`
+
+## Local Docker Registry
+
+- `docker run -d -p 5001:5000 --restart always --name registry registry:latest`
+- `docker ps | grep registry`
+- Publish image
+  - `docker pull alpine`
+  - `docker tag alpine localhost:5001/alpine`
+  - `docker push localhost:5001/alpine`
+- Check image
+  - `docker image rm localhost:5001/alpine`  
+  - `docker pull localhost:5001/alpine`  
+  - `docker run -it localhost:5001/alpine sh`
+
+# Best practices
+
+- Use multi-stage builds
+- Use docker cache
+  - Order docker instructions properly
+  - Keeps layers and images small (install apps)
+  - Minimize number of layers (RUN)
+- Reduce build contex
+  - Don't include unnecessary file (COPY)
+  - Use .dockerignore
+- Use an appropriate image (alpine)
+- Decouple application (ENTRYPOINT)
