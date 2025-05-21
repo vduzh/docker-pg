@@ -12,6 +12,19 @@
     - `docker run -it --privileged --pid=host justincormack/nsenter1`
     - `ls /var/lib/docker`
 
+### Local Docker Registry
+
+- `docker run -d -p 5001:5000 --restart always --name registry registry:latest`
+- `docker ps | grep registry`
+- Publish image
+  - `docker pull alpine`
+  - `docker tag alpine localhost:5001/alpine`
+  - `docker push localhost:5001/alpine`
+- Check image
+  - `docker image rm localhost:5001/alpine`  
+  - `docker pull localhost:5001/alpine`  
+  - `docker run -it localhost:5001/alpine sh`    
+
 ## Images
 
 - `docker images`
@@ -243,19 +256,6 @@
 
 ### Logout
 - `docker logout`
-
-## Local Docker Registry
-
-- `docker run -d -p 5001:5000 --restart always --name registry registry:latest`
-- `docker ps | grep registry`
-- Publish image
-  - `docker pull alpine`
-  - `docker tag alpine localhost:5001/alpine`
-  - `docker push localhost:5001/alpine`
-- Check image
-  - `docker image rm localhost:5001/alpine`  
-  - `docker pull localhost:5001/alpine`  
-  - `docker run -it localhost:5001/alpine sh`
 
 # Best practices
 
