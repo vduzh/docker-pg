@@ -21,9 +21,9 @@
   - `docker tag alpine localhost:5001/alpine`
   - `docker push localhost:5001/alpine`
 - Check image
-  - `docker image rm localhost:5001/alpine`  
-  - `docker pull localhost:5001/alpine`  
-  - `docker run -it localhost:5001/alpine sh`    
+  - `docker image rm localhost:5001/alpine`
+  - `docker pull localhost:5001/alpine`
+  - `docker run -it localhost:5001/alpine sh`
 
 ## Images
 
@@ -194,9 +194,9 @@
         - `docker inspect 589`
     - `docker build --build-arg alpine_vesrion=3 --build-arg foo=Foo -f Dockerfile .`
 - Entry point
-    - ENTRYPOINT - process to run
-    - CMD - process params
-    - `docker run -it 653 start` - run tomcat with start (default is run)
+  - ENTRYPOINT - process to run
+  - CMD - process params
+  - `docker run -it 653 start` - run tomcat with start (default is run)
 - Cache
   - `docker build --no-cache .`
 
@@ -212,32 +212,31 @@
 - `docker tag d595e854deed repo_name/my-tomcat:1.0`
   - `docker tag d595e854deed repo_name/my-tomcat:1.1` - add one more tag to the same image
 
-
 ## Multi stage builds (located in the multi-stage folder)
 
- - `cd multi-stage`
- - `docker build .`
- - `docer run 83q`
+- `cd multi-stage`
+- `docker build .`
+- `docer run 83q`
 
- ## Build Context
+## Build Context
 
- - Docker file is always taken from a context
+- Docker file is always taken from a context
 
- ### From std in
- 
- - `docker build -f- . <<EOF`
- - `FROM alpine`
- - `RUN touch test.txt`
- - `EOF`
+### From std in
 
- ### Without Context
- 
- - `docker build - <<EOF`
- - `FROM alpine`
- - `EOF`
+- `docker build -f- . <<EOF`
+- `FROM alpine`
+- `RUN touch test.txt`
+- `EOF`
+
+### Without Context
+
+- `docker build - <<EOF`
+- `FROM alpine`
+- `EOF`
 
 ### By URL
- 
+
 ### From archive
 
 ## Push images
@@ -255,6 +254,7 @@
 - `docker push repo_name/my-first-tag:1.0`
 
 ### Logout
+
 - `docker logout`
 
 # Best practices
@@ -269,3 +269,20 @@
   - Use .dockerignore
 - Use an appropriate image (alpine)
 - Decouple application (ENTRYPOINT)
+
+# Examples
+
+# example-1
+
+Builds a java app.
+
+## Create a database
+
+- `docker network create example-1-net`
+- `docker run -d -e POSTGRES_PASSWORD=pass --name postgres --network example-1-net postgres`
+
+## Build java app
+
+- `docker build -f ./prod.Dockerfile .`
+- `docker run -d --name web --network example-1-net -p 8082:8080 687`
+- Open localhost:8082
