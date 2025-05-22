@@ -286,3 +286,37 @@ Builds a java app.
 - `docker build -f ./prod.Dockerfile .`
 - `docker run -d --name web --network example-1-net -p 8082:8080 687`
 - Open localhost:8082
+
+# Docker Compose
+
+- `docker-compose version`
+- `docker compose version`
+
+## Basic
+
+- `docker compose --help` - available commands
+- `docker compose build` - Build or rebuild services
+- `docker compose up` - Create and start containers
+  - `docker compose up -d` - Create and start containers in the detached mode 
+  - `docker ps`
+  - `docker network ls` - docker-pg_default appeared (bridge type)
+  - Ctrl+C - to stop docker compose
+- `docker compose up --build` -
+- `docker compose logs` - View output from containers
+- `docker compose pause` - Pause services
+  - `docker ps` - status is Paused
+- `docker compose unpause` - Unpause services
+- `docker compose stop` - Stop service
+- `docker compose start` - Start services 
+- `docker compose restart` - Restart service containers 
+- `docker compose cp ./test-file.md first:/` - Copy files/folders between a service container and the local filesystem
+- `docker compose exec first ls -all` - Execute a command in a running container
+  - `docker compose exec --help`
+- `docker compose rm` - Removes stopped service containers 
+- `docker compose down` - Stop and remove containers, networks
+
+## Compose file
+
+- by default compose.yaml is used
+- `docker compose -f compose.yaml up -d` 
+  - `docker compose -f compose.yaml down` 

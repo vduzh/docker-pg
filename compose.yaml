@@ -1,0 +1,7 @@
+name: docker-pg
+
+services:
+  first:
+    image: alpine:latest
+    command: #CMD
+      - "top"
