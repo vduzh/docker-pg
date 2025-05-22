@@ -270,23 +270,6 @@
 - Use an appropriate image (alpine)
 - Decouple application (ENTRYPOINT)
 
-# Examples
-
-# example-1
-
-Builds a java app.
-
-## Create a database
-
-- `docker network create example-1-net`
-- `docker run -d -e POSTGRES_PASSWORD=pass --name postgres --network example-1-net postgres`
-
-## Build java app
-
-- `docker build -f ./prod.Dockerfile .`
-- `docker run -d --name web --network example-1-net -p 8082:8080 687`
-- Open localhost:8082
-
 # Docker Compose
 
 - `docker-compose version`
@@ -320,3 +303,30 @@ Builds a java app.
 - by default compose.yaml is used
 - `docker compose -f compose.yaml up -d` 
   - `docker compose -f compose.yaml down` 
+
+
+# Examples
+
+# example-1
+
+Builds a java app.
+
+## Pure Docker
+
+### Create a database
+
+- `docker network create example-1-net`
+- `docker run -d -e POSTGRES_PASSWORD=pass --name postgres --network example-1-net postgres`
+
+### Build java app
+
+- `docker build -f ./prod.Dockerfile .`
+- `docker run -d --name web --network example-1-net -p 8082:8080 687`
+- Open localhost:8082
+
+## Docker Compose
+
+- `docker compose up -d` -  example-1-database-1 container is available
+  - `docker compose logs`
+    - `docker compose logs database`
+- Open localhost:8083
