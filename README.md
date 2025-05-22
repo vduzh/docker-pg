@@ -316,7 +316,7 @@ Builds a java app.
 ### Create a network
 
 - `docker network create example-1-net`
-- 
+ 
 ### Create a database
 
 - `docker run -d -e POSTGRES_PASSWORD=pass --name postgres --network example-1-net postgres`
