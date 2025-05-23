@@ -7,6 +7,8 @@ services:
       POSTGRES_PASSWORD: pass
     ports:
       - "5435:5432"
+    networks:
+      - example-1-net
 
   web: # or frontend
     image: example-web # now it is the name of the image
@@ -17,4 +19,10 @@ services:
       dockerfile: prod.Dockerfile
     ports:
       - "8083:8080"
+    networks:
+      - example-1-net
 
+networks:
+  example-1-net:
+    name: example-1-net
+    driver: bridge
