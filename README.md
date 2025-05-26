@@ -190,6 +190,7 @@
 - Build image
   - `docker build -f Dockerfile .`
     - `docker build .`
+      - `dive 589`
       - `docker run -it 589 sh`
         - `docker inspect 589`
     - `docker build --build-arg alpine_vesrion=3 --build-arg foo=Foo -f Dockerfile .`
